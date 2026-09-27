@@ -1,1214 +1,1872 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#08111f">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<meta
+  name="theme-color"
+  content="#07111f">
+
 <title>Sane's Personalized Weight Management</title>
 
+
 <style>
+
 :root {
+
   --text:#f8fbff;
+
   --muted:#b9c7d8;
+
   --line:rgba(255,255,255,.15);
+
   --card:rgba(5,13,25,.78);
+
   --green:#63e08e;
+
   --yellow:#ffc857;
+
   --red:#ff5f70;
+
   --blue:#55c7ff;
+
 }
+
 
 * {
+
   box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
 }
 
-html, body {
+
+html,
+body {
+
   margin:0;
+
   width:100%;
+
   height:100%;
+
   overflow:hidden;
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color:var(--text);
-  background:#06101d;
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color:
+    var(--text);
+
+  background:
+    #07111f;
+
 }
+
 
 body {
-  min-height:100vh;
-  min-height:100dvh;
+
+  min-height:
+    100vh;
+
+  min-height:
+    100dvh;
+
 
   /*
-    KEEP YOUR EXISTING PHOTO BACKGROUND HERE.
+    Put your background image
+    in the same GitHub folder
+    as index.html.
 
-    If your current version already has the long:
-    url("data:image/jpeg;base64,......")
-    line, paste that same URL below instead of:
-    url("sane_weight_background.jpg")
-
-    OR put sane_weight_background.jpg in the same
-    GitHub folder as index.html.
+    Filename:
+    sane_weight_background.jpg
   */
 
   background-image:
+
     linear-gradient(
       180deg,
-      rgba(3,9,18,.30),
-      rgba(3,9,18,.72) 42%,
-      rgba(3,9,18,.92)
+      rgba(3,9,18,.34),
+      rgba(3,9,18,.69) 44%,
+      rgba(3,9,18,.90)
     ),
+
     url("sane_weight_background.jpg");
 
-  background-size:cover;
-  background-position:center 24%;
-  background-repeat:no-repeat;
+
+  background-size:
+    cover;
+
+  background-position:
+    center 22%;
+
+  background-repeat:
+    no-repeat;
+
 }
+
 
 button,
 input {
-  font:inherit;
+
+  font:
+    inherit;
+
 }
+
+
+
+/* =================================
+   MAIN SCREEN
+   ================================= */
 
 .app {
-  width:min(100%,520px);
 
-  height:100vh;
-  height:100dvh;
+  width:
+    min(100%,520px);
 
-  margin:0 auto;
+  height:
+    100vh;
+
+  height:
+    100dvh;
+
+  margin:
+    0 auto;
+
 
   padding:
-    max(6px,env(safe-area-inset-top))
+
+    max(
+      5px,
+      env(safe-area-inset-top)
+    )
+
     10px
-    max(7px,env(safe-area-inset-bottom));
+
+    max(
+      6px,
+      env(safe-area-inset-bottom)
+    );
+
 
   display:grid;
-  grid-template-rows:auto minmax(0,1fr) auto;
-  gap:6px;
+
+
+  grid-template-rows:
+
+    auto
+    minmax(0,1fr)
+    auto;
+
+
+  gap:
+    6px;
+
 }
+
+
+
+/* =================================
+   TITLE
+   ================================= */
 
 header {
-  min-height:0;
+
+  min-height:
+    0;
+
 }
+
 
 h1 {
-  margin:0;
-  padding:0;
 
-  font-size:clamp(1.05rem,4.6vw,1.35rem);
-  line-height:1.05;
+  margin:
+    0;
 
-  text-align:center;
+  padding:
+    0;
+
+  text-align:
+    center;
+
+  font-size:
+    clamp(
+      1rem,
+      4.2vw,
+      1.28rem
+    );
+
+  line-height:
+    1.05;
+
+  font-weight:
+    800;
+
+  white-space:
+    nowrap;
 
   text-shadow:
-    0 2px 10px rgba(0,0,0,.55);
+
+    0 2px 12px
+    rgba(0,0,0,.65);
+
 }
 
 
-/* =========================
-   DATE ROW
-   ========================= */
+
+/* =================================
+   DATE / TODAY / YESTERDAY
+   ================================= */
 
 .date-row {
-  margin-top:5px;
 
   display:grid;
 
   grid-template-columns:
-    minmax(68px,.75fr)
-    1fr
-    1fr;
 
-  gap:5px;
-  align-items:center;
+    .82fr
+    1.1fr
+    1.1fr;
+
+
+  gap:
+    5px;
+
+  margin-top:
+    5px;
+
 }
+
 
 .date-label,
 .tab {
-  min-height:34px;
 
-  border:1px solid var(--line);
-  border-radius:11px;
+  min-height:
+    33px;
 
-  color:white;
+  padding:
+    5px 7px;
+
+  border:
+
+    1px solid
+    var(--line);
+
+  border-radius:
+    12px;
+
 
   background:
-    rgba(5,13,25,.74);
 
-  font-weight:800;
-  font-size:.82rem;
+    rgba(
+      5,
+      13,
+      25,
+      .80
+    );
 
-  cursor:pointer;
 
-  padding:6px 8px;
+  color:
+    white;
+
+
+  font-size:
+    .81rem;
+
+  font-weight:
+    850;
+
+  cursor:
+    pointer;
+
 }
 
-.date-label {
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
 
 .tab.active {
-  background:#fff;
-  color:#0b1422;
+
+  background:
+    white;
+
+  color:
+    #07111f;
+
 }
 
-
-/*
-  Native date picker stays hidden.
-  On screen we show only:
-  27 Sep
-
-  Not:
-  27 Sep 2026
-*/
 
 #datePicker {
-  position:fixed;
-  left:-9999px;
 
-  width:1px;
-  height:1px;
+  position:
+    fixed;
 
-  opacity:0;
+  left:
+    -9999px;
+
+  width:
+    1px;
+
+  height:
+    1px;
+
+  opacity:
+    0;
+
 }
 
 
-/* =========================
-   THREE PANELS
-   ========================= */
+
+/* =================================
+   PANELS AREA
+   ================================= */
 
 .panels {
-  min-height:0;
+
+  min-height:
+    0;
+
 
   display:grid;
 
+
   grid-template-rows:
+
     minmax(0,1fr)
+
     auto
+
     minmax(0,1fr);
 
-  gap:6px;
+
+  gap:
+    6px;
+
 }
 
-.card {
-  min-height:0;
-  overflow:hidden;
 
-  padding:9px 11px;
+
+/* =================================
+   CARD
+   ================================= */
+
+.card {
+
+  min-height:
+    0;
+
+  overflow:
+    hidden;
+
+
+  padding:
+    9px 11px;
+
 
   border:
-    1px solid var(--line);
 
-  border-radius:17px;
+    1px solid
+    var(--line);
+
+
+  border-radius:
+    18px;
+
 
   background:
     var(--card);
 
+
   backdrop-filter:
     blur(12px);
+
 
   -webkit-backdrop-filter:
     blur(12px);
 
+
   box-shadow:
-    0 8px 24px
+
+    0 10px 30px
     rgba(0,0,0,.24);
+
 }
 
+
 .card-head {
+
   display:flex;
 
-  align-items:center;
+  align-items:
+    center;
 
   justify-content:
     space-between;
 
-  gap:8px;
+  gap:
+    8px;
 
-  min-height:27px;
+  min-height:
+    29px;
+
 }
+
 
 .card h2 {
-  margin:0;
 
-  font-size:.95rem;
+  margin:
+    0;
 
-  line-height:1;
+  font-size:
+    .94rem;
+
+  line-height:
+    1;
+
 }
 
+
 .add-btn {
-  border:0;
+
+  border:
+    0;
 
   border-radius:
     999px;
 
+
   padding:
-    6px 10px;
+    6px 11px;
 
-  background:#fff;
-
-  color:#0b1422;
-
-  font-size:.78rem;
-
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-.add-btn:disabled {
-  opacity:.35;
-}
-
-
-/* =========================
-   CALORIE / ACTIVITY CIRCLE
-   ========================= */
-
-.metric {
-  height:
-    calc(100% - 28px);
-
-  min-height:0;
-
-  display:grid;
-
-  grid-template-columns:
-    auto minmax(0,1fr);
-
-  gap:12px;
-
-  align-items:center;
-
-  justify-content:center;
-}
-
-.ring {
-  --p:0;
-  --ring:var(--green);
-
-  width:
-    clamp(92px,26vw,116px);
-
-  aspect-ratio:1;
-
-  border-radius:50%;
-
-  display:grid;
-
-  place-items:center;
-
-  position:relative;
 
   background:
-    conic-gradient(
-      var(--ring)
-      calc(var(--p) * 1%),
-      rgba(255,255,255,.10)
-      0
-    );
-}
+    white;
 
-.ring::after {
-  content:"";
+  color:
+    #07111f;
 
-  position:absolute;
-
-  inset:7px;
-
-  border-radius:50%;
-
-  background:
-    rgba(5,13,25,.94);
-}
-
-.ring-inner {
-  position:relative;
-
-  z-index:1;
-
-  text-align:center;
-
-  line-height:1;
-}
-
-.ring-number {
-  font-weight:950;
 
   font-size:
-    clamp(1.03rem,4.8vw,1.38rem);
+    .77rem;
 
-  white-space:nowrap;
-}
+  font-weight:
+    900;
 
-.ring-label {
-  margin-top:5px;
+  cursor:
+    pointer;
 
-  color:
-    var(--muted);
-
-  font-size:.60rem;
-
-  font-weight:800;
-
-  letter-spacing:.08em;
-}
-
-.metric-side {
-  min-width:0;
-
-  display:grid;
-
-  align-content:center;
-
-  gap:6px;
 }
 
 
-/* =========================
-   LAST ITEM
-   ========================= */
+.add-btn:disabled {
 
-.last-item {
-  min-height:31px;
+  opacity:
+    .35;
 
-  display:flex;
-
-  align-items:center;
-
-  justify-content:
-    space-between;
-
-  gap:6px;
-
-  padding:
-    6px 8px;
-
-  border-radius:10px;
-
-  background:
-    rgba(255,255,255,.07);
-
-  font-size:.76rem;
-
-  color:#e7f0f8;
-}
-
-.last-text {
-  overflow:hidden;
-
-  white-space:nowrap;
-
-  text-overflow:
-    ellipsis;
-}
-
-.undo {
-  flex:0 0 auto;
-
-  width:24px;
-  height:24px;
-
-  border:0;
-
-  border-radius:50%;
-
-  background:
-    rgba(255,255,255,.11);
-
-  color:#fff;
-
-  font-size:1rem;
-
-  cursor:pointer;
-}
-
-.no-last {
-  color:
-    var(--muted);
 }
 
 
-/* =========================
-   WATER
-   ========================= */
 
-.water-card {
-  padding-top:8px;
-  padding-bottom:8px;
-}
+/* =================================
+   BIG CIRCLE AREA
+   ================================= */
 
-.water-count {
-  color:#dff5ff;
+.circle-area {
 
-  font-size:.78rem;
+  height:
 
-  font-weight:900;
-}
-
-.water-row {
-  display:grid;
-
-  grid-template-columns:
-    repeat(8,1fr);
-
-  gap:6px;
-
-  margin-top:7px;
-}
-
-.glass {
-  position:relative;
-
-  height:42px;
-
-  border:
-    2px solid
-    rgba(230,247,255,.78);
-
-  border-top:0;
-
-  border-radius:
-    3px 3px 8px 8px;
-
-  overflow:hidden;
-
-  cursor:pointer;
-
-  background:
-    rgba(255,255,255,.035);
-}
-
-.glass::before {
-  content:"";
-
-  position:absolute;
-
-  left:4%;
-  right:4%;
-  bottom:0;
-
-  height:0;
-
-  background:
-    linear-gradient(
-      180deg,
-      #75d8ff,
-      #2f9ef1
+    calc(
+      100% - 29px
     );
 
-  transition:
-    height .16s ease;
+
+  min-height:
+    0;
+
+
+  display:flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
 }
 
-.glass.full::before {
-  height:82%;
+
+
+/* =================================
+   CIRCLE
+   ================================= */
+
+.ring {
+
+  --p:0;
+
+  --ring:
+    var(--green);
+
+
+  width:
+
+    clamp(
+      116px,
+      34vw,
+      150px
+    );
+
+
+  aspect-ratio:
+    1;
+
+
+  flex:
+    0 0 auto;
+
+
+  position:
+    relative;
+
+
+  display:grid;
+
+  place-items:
+    center;
+
+
+  border-radius:
+    50%;
+
+
+  background:
+
+    conic-gradient(
+
+      var(--ring)
+
+      calc(
+        var(--p) * 1%
+      ),
+
+      rgba(
+        255,
+        255,
+        255,
+        .11
+      )
+
+      0
+
+    );
+
 }
 
-.glass.full::after {
+
+.ring::after {
+
   content:"";
 
-  position:absolute;
 
-  left:10%;
-  right:10%;
+  position:
+    absolute;
 
-  bottom:75%;
+  inset:
+    9px;
 
-  height:2px;
+
+  border-radius:
+    50%;
+
 
   background:
-    rgba(235,253,255,.9);
 
-  border-radius:99px;
+    rgba(
+      5,
+      13,
+      25,
+      .97
+    );
+
 }
+
+
+.ring-inner {
+
+  position:
+    relative;
+
+  z-index:
+    1;
+
+
+  text-align:
+    center;
+
+  line-height:
+    1;
+
+}
+
+
+.ring-number {
+
+  font-size:
+
+    clamp(
+      1.45rem,
+      7vw,
+      2rem
+    );
+
+
+  font-weight:
+    950;
+
+  white-space:
+    nowrap;
+
+}
+
+
+.ring-label {
+
+  margin-top:
+    7px;
+
+
+  color:
+    #c2cfdd;
+
+
+  font-size:
+    .61rem;
+
+
+  font-weight:
+    900;
+
+
+  letter-spacing:
+    .14em;
+
+}
+
+
+
+/* =================================
+   WATER
+   ================================= */
+
+.water-card {
+
+  padding:
+
+    8px
+    11px
+    9px;
+
+}
+
+
+.water-count {
+
+  color:
+    #e1f6ff;
+
+  font-size:
+    .80rem;
+
+  font-weight:
+    900;
+
+}
+
+
+.water-row {
+
+  display:grid;
+
+  grid-template-columns:
+
+    repeat(
+      8,
+      1fr
+    );
+
+
+  gap:
+    6px;
+
+
+  margin-top:
+    7px;
+
+}
+
+
+.glass {
+
+  position:
+    relative;
+
+
+  height:
+    43px;
+
+
+  overflow:
+    hidden;
+
+
+  border:
+
+    2px solid
+    rgba(
+      225,
+      244,
+      255,
+      .76
+    );
+
+
+  border-top:
+    0;
+
+
+  border-radius:
+
+    3px
+    3px
+    9px
+    9px;
+
+
+  background:
+
+    rgba(
+      255,
+      255,
+      255,
+      .035
+    );
+
+
+  cursor:
+    pointer;
+
+}
+
+
+.glass::before {
+
+  content:"";
+
+
+  position:
+    absolute;
+
+
+  left:
+    4%;
+
+  right:
+    4%;
+
+  bottom:
+    0;
+
+
+  height:
+    0;
+
+
+  background:
+
+    linear-gradient(
+
+      180deg,
+
+      #72d9ff,
+
+      #2f9ff1
+
+    );
+
+
+  transition:
+
+    height
+    .16s ease;
+
+}
+
+
+.glass.full::before {
+
+  height:
+    82%;
+
+}
+
+
+.glass.full::after {
+
+  content:"";
+
+
+  position:
+    absolute;
+
+
+  left:
+    10%;
+
+  right:
+    10%;
+
+
+  bottom:
+    74%;
+
+
+  height:
+    2px;
+
+
+  border-radius:
+    100px;
+
+
+  background:
+
+    rgba(
+      240,
+      253,
+      255,
+      .92
+    );
+
+}
+
 
 .glass.locked {
-  opacity:.72;
 
-  cursor:default;
+  cursor:
+    default;
+
+  opacity:
+    .75;
+
 }
 
 
-/* =========================
+
+/* =================================
    CLOSE DAY
-   ========================= */
+   ================================= */
 
 .close-btn {
-  width:100%;
 
-  min-height:39px;
+  width:
+    100%;
+
+
+  min-height:
+    38px;
+
 
   border:
-    1px solid var(--line);
 
-  border-radius:13px;
+    1px solid
+    var(--line);
+
+
+  border-radius:
+    13px;
+
 
   background:
-    rgba(7,14,25,.90);
 
-  color:#fff;
+    rgba(
+      6,
+      14,
+      25,
+      .91
+    );
 
-  font-weight:950;
 
-  font-size:.84rem;
+  color:
+    white;
 
-  cursor:pointer;
+
+  font-size:
+    .83rem;
+
+  font-weight:
+    950;
+
+
+  cursor:
+    pointer;
+
 }
+
 
 .close-btn.closed {
-  opacity:.60;
+
+  opacity:
+    .55;
+
 }
+
 
 .hidden {
-  display:none !important;
+
+  display:
+    none !important;
+
 }
 
 
-/* =========================
-   ADD MEAL / ACTIVITY POPUP
-   ========================= */
 
-/*
-  We use a popup so adding food
-  does NOT make the main page taller.
-*/
+/* =================================
+   ADD MEAL / ACTIVITY POPUP
+   ================================= */
 
 .modal {
-  position:fixed;
 
-  inset:0;
+  position:
+    fixed;
 
-  z-index:50;
+  inset:
+    0;
 
-  display:none;
 
-  align-items:center;
+  z-index:
+    100;
 
-  justify-content:center;
 
-  padding:18px;
+  display:
+    none;
+
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+
+  padding:
+    18px;
+
 
   background:
-    rgba(0,0,0,.58);
+
+    rgba(
+      0,
+      0,
+      0,
+      .62
+    );
+
 }
+
 
 .modal.show {
-  display:flex;
+
+  display:
+    flex;
+
 }
+
 
 .modal-box {
-  width:min(100%,390px);
 
-  padding:15px;
+  width:
+
+    min(
+      100%,
+      390px
+    );
+
+
+  padding:
+    15px;
+
 
   border:
+
     1px solid
-    rgba(255,255,255,.18);
+    rgba(
+      255,
+      255,
+      255,
+      .18
+    );
 
-  border-radius:18px;
 
-  background:#0b1625;
+  border-radius:
+    18px;
+
+
+  background:
+    #0a1625;
+
 
   box-shadow:
-    0 18px 60px
-    rgba(0,0,0,.48);
+
+    0 20px 60px
+    rgba(
+      0,
+      0,
+      0,
+      .55
+    );
+
 }
+
 
 .modal-box h3 {
-  margin:0 0 11px;
 
-  font-size:1rem;
+  margin:
+
+    0
+    0
+    11px;
+
+
+  font-size:
+    1rem;
+
 }
+
 
 .form-row {
+
   display:grid;
 
-  grid-template-columns:
-    1.25fr .75fr;
 
-  gap:8px;
+  grid-template-columns:
+
+    1.25fr
+    .75fr;
+
+
+  gap:
+    8px;
+
 }
+
 
 .form-row input {
-  width:100%;
 
-  min-width:0;
+  width:
+    100%;
+
+
+  min-width:
+    0;
+
 
   border:
+
     1px solid
-    rgba(255,255,255,.15);
+    rgba(
+      255,
+      255,
+      255,
+      .15
+    );
 
-  border-radius:11px;
 
-  background:#101f31;
+  border-radius:
+    11px;
 
-  color:#fff;
 
-  padding:10px;
+  background:
+    #101f31;
 
-  outline:none;
+
+  color:
+    white;
+
+
+  padding:
+    10px;
+
+
+  outline:
+    none;
+
 }
+
 
 .modal-actions {
+
   display:grid;
 
+
   grid-template-columns:
-    1fr 1fr;
 
-  gap:8px;
+    1fr
+    1fr;
 
-  margin-top:10px;
+
+  gap:
+    8px;
+
+
+  margin-top:
+    10px;
+
 }
+
 
 .modal-actions button {
-  min-height:38px;
 
-  border:0;
+  min-height:
+    38px;
 
-  border-radius:11px;
 
-  font-weight:900;
+  border:
+    0;
 
-  cursor:pointer;
+
+  border-radius:
+    11px;
+
+
+  font-weight:
+    900;
+
+
+  cursor:
+    pointer;
+
 }
+
 
 .cancel {
-  background:#253448;
 
-  color:#fff;
+  background:
+    #253448;
+
+  color:
+    white;
+
 }
+
 
 .save {
-  background:#fff;
 
-  color:#0b1422;
+  background:
+    white;
+
+  color:
+    #07111f;
+
 }
 
 
-/* =========================
-   SHORT PHONE
-   ========================= */
 
-@media (max-height:720px) {
+/* =================================
+   SHORTER PHONES
+   ================================= */
+
+@media
+(max-height:760px) {
 
   .app {
-    gap:4px;
 
-    padding-top:4px;
+    gap:
+      4px;
 
-    padding-bottom:4px;
+
+    padding-top:
+      4px;
+
+
+    padding-bottom:
+      4px;
+
   }
+
 
   h1 {
-    font-size:1rem;
+
+    font-size:
+      .96rem;
+
   }
+
 
   .date-row {
-    margin-top:3px;
 
-    gap:4px;
+    margin-top:
+      3px;
+
+    gap:
+      4px;
+
   }
+
 
   .date-label,
   .tab {
-    min-height:30px;
 
-    padding:4px 7px;
+    min-height:
+      29px;
 
-    font-size:.75rem;
+
+    padding:
+      4px 6px;
+
+
+    font-size:
+      .73rem;
+
   }
+
 
   .panels {
-    gap:4px;
+
+    gap:
+      4px;
+
   }
+
 
   .card {
-    padding:7px 9px;
 
-    border-radius:14px;
+    padding:
+      7px 9px;
+
+
+    border-radius:
+      15px;
+
   }
+
 
   .card-head {
-    min-height:23px;
+
+    min-height:
+      24px;
+
   }
+
 
   .card h2 {
-    font-size:.86rem;
+
+    font-size:
+      .84rem;
+
   }
+
 
   .add-btn {
+
     padding:
-      5px 8px;
+      5px 9px;
 
-    font-size:.70rem;
+
+    font-size:
+      .69rem;
+
   }
 
-  .metric {
+
+  .circle-area {
+
     height:
-      calc(100% - 24px);
 
-    gap:8px;
+      calc(
+        100% - 24px
+      );
+
   }
+
 
   .ring {
-    width:82px;
+
+    width:
+
+      clamp(
+        98px,
+        29vw,
+        122px
+      );
+
   }
+
 
   .ring::after {
-    inset:6px;
+
+    inset:
+      7px;
+
   }
+
 
   .ring-number {
-    font-size:1rem;
+
+    font-size:
+      1.35rem;
+
   }
+
 
   .ring-label {
-    font-size:.54rem;
 
-    margin-top:4px;
+    margin-top:
+      5px;
+
+    font-size:
+      .55rem;
+
   }
 
-  .last-item {
-    min-height:26px;
-
-    padding:4px 7px;
-
-    font-size:.68rem;
-  }
-
-  .undo {
-    width:21px;
-    height:21px;
-  }
 
   .water-row {
-    margin-top:5px;
 
-    gap:5px;
+    gap:
+      5px;
+
+
+    margin-top:
+      5px;
+
   }
+
 
   .glass {
-    height:31px;
+
+    height:
+      32px;
+
   }
+
 
   .close-btn {
-    min-height:32px;
 
-    font-size:.76rem;
+    min-height:
+      32px;
 
-    border-radius:11px;
+
+    font-size:
+      .74rem;
+
   }
+
 }
 
 
-@media (max-height:610px) {
+
+/* =================================
+   VERY SHORT SCREEN
+   ================================= */
+
+@media
+(max-height:630px) {
+
+  h1 {
+
+    font-size:
+      .88rem;
+
+  }
+
+
+  .date-label,
+  .tab {
+
+    min-height:
+      26px;
+
+  }
+
 
   .ring {
-    width:70px;
+
+    width:
+      89px;
+
   }
+
+
+  .ring-number {
+
+    font-size:
+      1.18rem;
+
+  }
+
 
   .glass {
-    height:25px;
+
+    height:
+      25px;
+
   }
 
-  .last-item {
-    min-height:22px;
 
-    padding:
-      3px 6px;
+  .water-card {
+
+    padding-top:
+      5px;
+
+    padding-bottom:
+      5px;
+
   }
+
+
+  .close-btn {
+
+    min-height:
+      28px;
+
+  }
+
 }
 
 </style>
+
 </head>
+
 
 
 <body>
 
+
 <div class="app">
 
-  <header>
 
-    <h1>
-      Sane's Personalized Weight Management
-    </h1>
+<header>
 
-    <div class="date-row">
 
-      <button
-        id="dateLabel"
-        class="date-label"
-        type="button">
-        27 Sep
-      </button>
+<h1>
+Sane's Personalized Weight Management
+</h1>
 
-      <button
-        id="todayBtn"
-        class="tab active"
-        type="button">
-        Today
-      </button>
 
-      <button
-        id="yesterdayBtn"
-        class="tab"
-        type="button">
-        Yesterday
-      </button>
+<div class="date-row">
 
-      <input
-        id="datePicker"
-        type="date"
-        aria-label="Choose Today or Yesterday">
 
-    </div>
+<button
+  id="dateLabel"
+  class="date-label"
+  type="button">
+27 Sep
+</button>
 
-  </header>
 
+<button
+  id="todayBtn"
+  class="tab active"
+  type="button">
+Today
+</button>
 
 
-  <main class="panels">
+<button
+  id="yesterdayBtn"
+  class="tab"
+  type="button">
+Yesterday
+</button>
 
 
-    <!-- =====================
-         CALORIES
-         ===================== -->
+<input
+  id="datePicker"
+  type="date">
 
-    <section class="card">
 
-      <div class="card-head">
+</div>
 
-        <h2>
-          Calories
-        </h2>
+</header>
 
-        <button
-          id="mealAdd"
-          class="add-btn"
-          type="button">
 
-          + Add meal
 
-        </button>
 
-      </div>
 
+<main class="panels">
 
-      <div class="metric">
 
 
-        <div
-          id="foodRing"
-          class="ring">
+<!-- ===============================
+     CALORIES
+     =============================== -->
 
-          <div class="ring-inner">
+<section class="card">
 
-            <div
-              id="foodTotal"
-              class="ring-number">
 
-              0/1100
+<div class="card-head">
 
-            </div>
 
-            <div class="ring-label">
+<h2>
+Calories Eaten
+</h2>
 
-              EATEN
 
-            </div>
+<button
+  id="mealAdd"
+  class="add-btn"
+  type="button">
 
-          </div>
++ Add meal
 
-        </div>
+</button>
 
-
-        <div class="metric-side">
-
-          <div
-            id="mealLast"
-            class="last-item">
-
-            <span
-              class="last-text no-last">
-
-              No meal yet
-
-            </span>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================
-         WATER
-         ===================== -->
-
-    <section
-      class="card water-card">
-
-      <div class="card-head">
-
-        <h2>
-          Water
-        </h2>
-
-        <div
-          id="waterCount"
-          class="water-count">
-
-          0/8
-
-        </div>
-
-      </div>
-
-
-      <div
-        id="waterRow"
-        class="water-row"
-        aria-label="Eight glasses of water">
-      </div>
-
-
-    </section>
-
-
-
-    <!-- =====================
-         ACTIVITY
-         ===================== -->
-
-    <section class="card">
-
-      <div class="card-head">
-
-        <h2>
-          Activity
-        </h2>
-
-        <button
-          id="activityAdd"
-          class="add-btn"
-          type="button">
-
-          + Add activity
-
-        </button>
-
-      </div>
-
-
-      <div class="metric">
-
-
-        <div
-          id="burnRing"
-          class="ring"
-          style="--ring:var(--red)">
-
-          <div class="ring-inner">
-
-            <div
-              id="burnTotal"
-              class="ring-number">
-
-              0
-
-            </div>
-
-            <div class="ring-label">
-
-              BURNED
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="metric-side">
-
-          <div
-            id="activityLast"
-            class="last-item">
-
-            <span
-              class="last-text no-last">
-
-              No activity yet
-
-            </span>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-  </main>
-
-
-
-  <button
-    id="closeDay"
-    class="close-btn"
-    type="button">
-
-    Close the day
-
-  </button>
 
 </div>
 
 
 
-<!-- =========================
+<div class="circle-area">
+
+
+<div
+  id="foodRing"
+  class="ring">
+
+
+<div class="ring-inner">
+
+
+<div
+  id="foodTotal"
+  class="ring-number">
+
+0/1100
+
+</div>
+
+
+<div class="ring-label">
+
+KCAL EATEN
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ===============================
+     WATER
+     =============================== -->
+
+<section
+  class="card water-card">
+
+
+<div class="card-head">
+
+
+<h2>
+Water
+</h2>
+
+
+<div
+  id="waterCount"
+  class="water-count">
+
+0/8
+
+</div>
+
+
+</div>
+
+
+
+<div
+  id="waterRow"
+  class="water-row"
+  aria-label="Eight glasses of water">
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ===============================
+     ACTIVITY
+     =============================== -->
+
+<section class="card">
+
+
+<div class="card-head">
+
+
+<h2>
+Activity
+</h2>
+
+
+<button
+  id="activityAdd"
+  class="add-btn"
+  type="button">
+
++ Add activity
+
+</button>
+
+
+</div>
+
+
+
+<div class="circle-area">
+
+
+<div
+  id="burnRing"
+  class="ring"
+  style="--ring:var(--red)">
+
+
+<div class="ring-inner">
+
+
+<div
+  id="burnTotal"
+  class="ring-number">
+
+0
+
+</div>
+
+
+<div class="ring-label">
+
+BURNED
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+
+
+
+<button
+  id="closeDay"
+  class="close-btn"
+  type="button">
+
+Close the day
+
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- ===============================
      ADD MEAL POPUP
-     ========================= -->
+     =============================== -->
 
 <div
   id="mealModal"
-  class="modal"
-  aria-hidden="true">
-
-  <form
-    id="mealForm"
-    class="modal-box">
-
-    <h3>
-      Add meal
-    </h3>
+  class="modal">
 
 
-    <div class="form-row">
-
-      <input
-        id="mealName"
-        type="text"
-        maxlength="40"
-        placeholder="Meal name"
-        autocomplete="off"
-        required>
-
-      <input
-        id="mealCal"
-        type="number"
-        min="1"
-        step="1"
-        inputmode="numeric"
-        placeholder="Calories"
-        required>
-
-    </div>
+<form
+  id="mealForm"
+  class="modal-box">
 
 
-    <div class="modal-actions">
-
-      <button
-        class="cancel"
-        type="button"
-        data-close="mealModal">
-
-        Cancel
-
-      </button>
+<h3>
+Add meal
+</h3>
 
 
-      <button
-        class="save"
-        type="submit">
+<div class="form-row">
 
-        Add
 
-      </button>
+<input
+  id="mealName"
+  type="text"
+  maxlength="40"
+  placeholder="Meal name"
+  autocomplete="off"
+  required>
 
-    </div>
 
-  </form>
+<input
+  id="mealCal"
+  type="number"
+  min="1"
+  step="1"
+  inputmode="numeric"
+  placeholder="Calories"
+  required>
+
 
 </div>
 
 
 
-<!-- =========================
-     ADD ACTIVITY POPUP
-     ========================= -->
+<div class="modal-actions">
+
+
+<button
+  class="cancel"
+  type="button"
+  data-close="mealModal">
+
+Cancel
+
+</button>
+
+
+<button
+  class="save"
+  type="submit">
+
+Add
+
+</button>
+
+
+</div>
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+<!-- ===============================
+     ACTIVITY POPUP
+     =============================== -->
 
 <div
   id="activityModal"
-  class="modal"
-  aria-hidden="true">
-
-  <form
-    id="activityForm"
-    class="modal-box">
-
-    <h3>
-      Add activity
-    </h3>
+  class="modal">
 
 
-    <div class="form-row">
-
-      <input
-        id="activityName"
-        type="text"
-        maxlength="40"
-        placeholder="Activity name"
-        autocomplete="off"
-        required>
-
-      <input
-        id="activityCal"
-        type="number"
-        min="1"
-        step="1"
-        inputmode="numeric"
-        placeholder="Calorie burn"
-        required>
-
-    </div>
+<form
+  id="activityForm"
+  class="modal-box">
 
 
-    <div class="modal-actions">
-
-      <button
-        class="cancel"
-        type="button"
-        data-close="activityModal">
-
-        Cancel
-
-      </button>
+<h3>
+Add activity
+</h3>
 
 
-      <button
-        class="save"
-        type="submit">
+<div class="form-row">
 
-        Add
 
-      </button>
+<input
+  id="activityName"
+  type="text"
+  maxlength="40"
+  placeholder="Activity name"
+  autocomplete="off"
+  required>
 
-    </div>
 
-  </form>
+<input
+  id="activityCal"
+  type="number"
+  min="1"
+  step="1"
+  inputmode="numeric"
+  placeholder="Calories burned"
+  required>
+
 
 </div>
+
+
+
+<div class="modal-actions">
+
+
+<button
+  class="cancel"
+  type="button"
+  data-close="activityModal">
+
+Cancel
+
+</button>
+
+
+<button
+  class="save"
+  type="submit">
+
+Add
+
+</button>
+
+
+</div>
+
+
+</form>
+
+
+</div>
+
+
 
 
 
@@ -1216,212 +1874,417 @@ h1 {
 
 (() => {
 
-  "use strict";
+"use strict";
 
 
-  /* =========================
-     SETTINGS
-     ========================= */
 
-  const GOAL = 1100;
+/* ===============================
+   SETTINGS
+   =============================== */
 
-  /*
-    Same storage name as
-    your current app.
-  */
-
-  const STORAGE_KEY =
-    "sane_weight_management_v1";
+const GOAL =
+  1100;
 
 
-  let selected = "today";
+/*
+  Keep same localStorage name
+  so previous data survives.
+*/
+
+const STORAGE_KEY =
+  "sane_weight_management_v1";
 
 
-  const $ =
-    id => document.getElementById(id);
+let selected =
+  "today";
 
 
-  const els = {
-
-    dateLabel:
-      $("dateLabel"),
-
-    datePicker:
-      $("datePicker"),
-
-    todayBtn:
-      $("todayBtn"),
-
-    yesterdayBtn:
-      $("yesterdayBtn"),
+const $ =
+  id =>
+  document.getElementById(id);
 
 
-    mealAdd:
-      $("mealAdd"),
 
-    foodRing:
-      $("foodRing"),
+const els = {
 
-    foodTotal:
-      $("foodTotal"),
+  dateLabel:
+    $("dateLabel"),
 
-    mealLast:
-      $("mealLast"),
+  datePicker:
+    $("datePicker"),
 
+  todayBtn:
+    $("todayBtn"),
 
-    waterRow:
-      $("waterRow"),
-
-    waterCount:
-      $("waterCount"),
+  yesterdayBtn:
+    $("yesterdayBtn"),
 
 
-    activityAdd:
-      $("activityAdd"),
+  mealAdd:
+    $("mealAdd"),
 
-    burnRing:
-      $("burnRing"),
+  foodRing:
+    $("foodRing"),
 
-    burnTotal:
-      $("burnTotal"),
-
-    activityLast:
-      $("activityLast"),
+  foodTotal:
+    $("foodTotal"),
 
 
-    closeDay:
-      $("closeDay"),
+  waterRow:
+    $("waterRow"),
+
+  waterCount:
+    $("waterCount"),
 
 
-    mealModal:
-      $("mealModal"),
+  activityAdd:
+    $("activityAdd"),
 
-    mealForm:
-      $("mealForm"),
+  burnRing:
+    $("burnRing"),
 
-    mealName:
-      $("mealName"),
-
-    mealCal:
-      $("mealCal"),
+  burnTotal:
+    $("burnTotal"),
 
 
-    activityModal:
-      $("activityModal"),
+  closeDay:
+    $("closeDay"),
 
-    activityForm:
-      $("activityForm"),
 
-    activityName:
-      $("activityName"),
+  mealModal:
+    $("mealModal"),
 
-    activityCal:
-      $("activityCal")
+  mealForm:
+    $("mealForm"),
+
+  mealName:
+    $("mealName"),
+
+  mealCal:
+    $("mealCal"),
+
+
+  activityModal:
+    $("activityModal"),
+
+  activityForm:
+    $("activityForm"),
+
+  activityName:
+    $("activityName"),
+
+  activityCal:
+    $("activityCal")
+
+};
+
+
+
+/* ===============================
+   DATE FUNCTIONS
+   =============================== */
+
+function dateKey(
+  d = new Date()
+) {
+
+  const y =
+    d.getFullYear();
+
+
+  const m =
+    String(
+      d.getMonth() + 1
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  const day =
+    String(
+      d.getDate()
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  return (
+    `${y}-${m}-${day}`
+  );
+
+}
+
+
+
+function yesterdayKey() {
+
+  const d =
+    new Date();
+
+
+  d.setDate(
+    d.getDate() - 1
+  );
+
+
+  return dateKey(
+    d
+  );
+
+}
+
+
+
+/*
+  Screen displays:
+  27 Sep
+
+  No year.
+*/
+
+function shortDate(
+  key
+) {
+
+  const [y,m,d] =
+    key
+    .split("-")
+    .map(Number);
+
+
+  return new Intl.DateTimeFormat(
+
+    undefined,
+
+    {
+
+      day:
+        "numeric",
+
+      month:
+        "short"
+
+    }
+
+  ).format(
+
+    new Date(
+      y,
+      m - 1,
+      d
+    )
+
+  );
+
+}
+
+
+
+/* ===============================
+   DATA
+   =============================== */
+
+function blankDay(
+  key
+) {
+
+  return {
+
+    date:
+      key,
+
+    meals:
+      [],
+
+    activities:
+      [],
+
+    water:
+      0,
+
+    closed:
+      false
 
   };
 
+}
 
 
-  /* =========================
-     DATE
-     ========================= */
 
-  function dateKey(
-    d = new Date()
+function sanitizeDay(
+  day,
+  fallbackKey
+) {
+
+
+  if (
+    !day ||
+    typeof day !==
+    "object"
   ) {
 
-    const y =
-      d.getFullYear();
-
-    const m =
-      String(
-        d.getMonth() + 1
-      ).padStart(2,"0");
-
-    const day =
-      String(
-        d.getDate()
-      ).padStart(2,"0");
-
-
-    return (
-      `${y}-${m}-${day}`
-    );
+    day =
+      blankDay(
+        fallbackKey
+      );
 
   }
 
 
 
-  function yesterdayKey() {
+  day.date =
 
-    const d =
-      new Date();
+    typeof day.date ===
+    "string"
 
-    d.setDate(
-      d.getDate() - 1
-    );
+    ? day.date
 
-    return dateKey(d);
-
-  }
+    : fallbackKey;
 
 
 
-  /*
-    Visible date:
-    27 Sep
+  day.meals =
 
-    No year.
-  */
+    Array.isArray(
+      day.meals
+    )
 
-  function shortDate(key) {
+    ? day.meals.slice(
+        -50
+      )
 
-    const [y,m,d] =
-      key
-      .split("-")
-      .map(Number);
+    : [];
 
 
-    return new Intl.DateTimeFormat(
 
-      undefined,
+  day.activities =
 
-      {
-        day:"numeric",
-        month:"short"
-      }
+    Array.isArray(
+      day.activities
+    )
 
-    ).format(
+    ? day.activities.slice(
+        -50
+      )
 
-      new Date(
-        y,
-        m - 1,
-        d
+    : [];
+
+
+
+  day.water =
+
+    Math.max(
+
+      0,
+
+      Math.min(
+
+        8,
+
+        Number(
+          day.water
+        ) || 0
+
       )
 
     );
 
+
+
+  day.closed =
+    !!day.closed;
+
+
+  return day;
+
+}
+
+
+
+function saveState(
+  s = state
+) {
+
+  try {
+
+    localStorage.setItem(
+
+      STORAGE_KEY,
+
+      JSON.stringify({
+
+        today:
+          s.today,
+
+        yesterday:
+          s.yesterday
+
+      })
+
+    );
+
   }
 
+  catch (_) {}
+
+}
 
 
-  /* =========================
-     DATA
-     ========================= */
 
-  function blankDay(key) {
+function loadState() {
 
-    return {
 
-      date:key,
+  const today =
+    dateKey();
 
-      meals:[],
 
-      activities:[],
+  const yday =
+    yesterdayKey();
 
-      water:0,
 
-      closed:false
+  let s =
+    null;
+
+
+  try {
+
+    s = JSON.parse(
+
+      localStorage.getItem(
+        STORAGE_KEY
+      )
+
+      ||
+
+      "null"
+
+    );
+
+  }
+
+  catch (_) {}
+
+
+
+  if (
+    !s ||
+    typeof s !==
+    "object"
+  ) {
+
+    s = {
+
+      today:
+        blankDay(
+          today
+        ),
+
+      yesterday:
+        blankDay(
+          yday
+        )
 
     };
 
@@ -1429,471 +2292,293 @@ h1 {
 
 
 
-  function sanitizeDay(
-    day,
-    fallbackKey
+  s.today =
+    sanitizeDay(
+
+      s.today,
+
+      today
+
+    );
+
+
+  s.yesterday =
+    sanitizeDay(
+
+      s.yesterday,
+
+      yday
+
+    );
+
+
+
+  /*
+    MIDNIGHT RESET
+  */
+
+  if (
+    s.today.date !==
+    today
   ) {
 
-    if (
-      !day ||
-      typeof day !== "object"
-    ) {
 
-      day =
-        blankDay(
-          fallbackKey
-        );
-
-    }
-
-
-    day.date =
-      typeof day.date === "string"
-      ? day.date
-      : fallbackKey;
-
-
-    day.meals =
-      Array.isArray(day.meals)
-      ? day.meals.slice(-40)
-      : [];
-
-
-    day.activities =
-      Array.isArray(day.activities)
-      ? day.activities.slice(-40)
-      : [];
-
-
-    day.water =
-      Math.max(
-        0,
-        Math.min(
-          8,
-          Number(day.water) || 0
-        )
-      );
-
-
-    day.closed =
-      !!day.closed;
-
-
-    return day;
-
-  }
-
-
-
-  function saveState(
-    s = state
-  ) {
-
-    try {
-
-      localStorage.setItem(
-
-        STORAGE_KEY,
-
-        JSON.stringify({
-
-          today:
-            s.today,
-
-          yesterday:
-            s.yesterday
-
-        })
-
-      );
-
-    }
-
-    catch (_) {}
-
-  }
-
-
-
-  function loadState() {
-
-    const today =
-      dateKey();
-
-    const yday =
-      yesterdayKey();
-
-
-    let s = null;
-
-
-    try {
-
-      s =
-        JSON.parse(
-
-          localStorage.getItem(
-            STORAGE_KEY
-          ) || "null"
-
-        );
-
-    }
-
-    catch (_) {}
-
-
-
-    if (
-      !s ||
-      typeof s !== "object"
-    ) {
-
-      s = {
-
-        today:
-          blankDay(today),
-
-        yesterday:
-          blankDay(yday)
-
-      };
-
-    }
-
-
-
-    s.today =
-      sanitizeDay(
-        s.today,
-        today
-      );
+    const oldToday =
+      s.today;
 
 
     s.yesterday =
-      sanitizeDay(
-        s.yesterday,
-        yday
-      );
 
+      oldToday.date ===
+      yday
 
+      ? oldToday
 
-    /*
-      MIDNIGHT RESET
-
-      At midnight:
-      old Today -> Yesterday
-      new Today -> blank
-
-      Only Today and Yesterday
-      are remembered.
-    */
-
-    if (
-      s.today.date !== today
-    ) {
-
-      const oldToday =
-        s.today;
-
-
-      s.yesterday =
-
-        oldToday.date === yday
-
-        ? oldToday
-
-        : blankDay(yday);
-
-
-      s.today =
-        blankDay(today);
-
-    }
-
-
-
-    if (
-      s.yesterday.date !== yday
-    ) {
-
-      s.yesterday =
-        blankDay(yday);
-
-    }
-
-
-
-    saveState(s);
-
-    return s;
-
-  }
-
-
-
-  let state =
-    loadState();
-
-
-
-  function currentDay() {
-
-    return (
-
-      selected === "today"
-
-      ? state.today
-
-      : state.yesterday
-
-    );
-
-  }
-
-
-
-  function editable() {
-
-    return (
-
-      selected === "today"
-
-      &&
-      !state.today.closed
-
-    );
-
-  }
-
-
-
-  function total(list) {
-
-    return list.reduce(
-
-      (sum,item) =>
-
-        sum +
-        (
-          Number(
-            item.calories
-          ) || 0
-        ),
-
-      0
-
-    );
-
-  }
-
-
-
-  /* =========================
-     CIRCLES
-     ========================= */
-
-  function setRing(
-    element,
-    percent,
-    color
-  ) {
-
-    element.style.setProperty(
-
-      "--p",
-
-      Math.max(
-        0,
-        Math.min(
-          100,
-          percent
-        )
-      )
-
-    );
-
-
-    if (color) {
-
-      element.style.setProperty(
-
-        "--ring",
-
-        color
-
-      );
-
-    }
-
-  }
-
-
-
-  /* =========================
-     LAST ENTRY
-     ========================= */
-
-  function renderLast(
-    container,
-    list,
-    kind
-  ) {
-
-    container.innerHTML = "";
-
-
-    /*
-      Yesterday:
-      user asked only to show
-      circles + water.
-    */
-
-    if (
-      selected === "yesterday"
-    ) {
-
-      container.classList.add(
-        "hidden"
-      );
-
-      return;
-
-    }
-
-
-    container.classList.remove(
-      "hidden"
-    );
-
-
-
-    if (
-      !list.length
-    ) {
-
-      const text =
-        document.createElement(
-          "span"
+      : blankDay(
+          yday
         );
 
 
-      text.className =
-        "last-text no-last";
-
-
-      text.textContent =
-
-        kind === "meal"
-
-        ? "No meal yet"
-
-        : "No activity yet";
-
-
-      container.appendChild(
-        text
+    s.today =
+      blankDay(
+        today
       );
 
-      return;
-
-    }
+  }
 
 
 
-    const item =
-      list[
-        list.length - 1
-      ];
+  if (
+    s.yesterday.date !==
+    yday
+  ) {
 
-
-
-    const text =
-      document.createElement(
-        "span"
+    s.yesterday =
+      blankDay(
+        yday
       );
 
-
-    text.className =
-      "last-text";
+  }
 
 
-    text.textContent =
-      `${item.name || (
-        kind === "meal"
-        ? "Meal"
-        : "Activity"
-      )} • ${Number(
+
+  saveState(
+    s
+  );
+
+
+  return s;
+
+}
+
+
+
+let state =
+  loadState();
+
+
+
+function currentDay() {
+
+  return (
+
+    selected ===
+    "today"
+
+    ? state.today
+
+    : state.yesterday
+
+  );
+
+}
+
+
+
+function editable() {
+
+  return (
+
+    selected ===
+    "today"
+
+    &&
+
+    !state.today.closed
+
+  );
+
+}
+
+
+
+function total(
+  list
+) {
+
+  return list.reduce(
+
+    (
+      sum,
+      item
+    ) =>
+
+    sum +
+    (
+      Number(
         item.calories
-      ) || 0}`;
+      )
+
+      || 0
+    ),
+
+    0
+
+  );
+
+}
 
 
-    container.appendChild(
-      text
+
+/* ===============================
+   CIRCLE
+   =============================== */
+
+function setRing(
+  element,
+  percent,
+  color
+) {
+
+
+  element.style.setProperty(
+
+    "--p",
+
+    Math.max(
+
+      0,
+
+      Math.min(
+
+        100,
+
+        percent
+
+      )
+
+    )
+
+  );
+
+
+
+  element.style.setProperty(
+
+    "--ring",
+
+    color
+
+  );
+
+}
+
+
+
+/* ===============================
+   WATER
+   =============================== */
+
+function renderWater(
+  day
+) {
+
+
+  els.waterRow.innerHTML =
+    "";
+
+
+  els.waterCount.textContent =
+    `${day.water}/8`;
+
+
+
+  for (
+    let i = 0;
+    i < 8;
+    i++
+  ) {
+
+
+    const glass =
+      document.createElement(
+        "div"
+      );
+
+
+
+    glass.className =
+
+      "glass"
+
+      +
+
+      (
+        i < day.water
+
+        ? " full"
+
+        : ""
+      )
+
+      +
+
+      (
+        !editable()
+
+        ? " locked"
+
+        : ""
+      );
+
+
+
+    glass.setAttribute(
+
+      "aria-label",
+
+      `Water glass ${i + 1}`
+
     );
 
 
-
-    /*
-      Small × removes only
-      the last entry.
-
-      This is useful when
-      something was typed wrong.
-    */
 
     if (
       editable()
     ) {
 
-      const undo =
-        document.createElement(
-          "button"
-        );
 
-
-      undo.className =
-        "undo";
-
-
-      undo.type =
-        "button";
-
-
-      undo.title =
-        "Delete last";
-
-
-      undo.textContent =
-        "×";
-
-
-      undo.addEventListener(
+      glass.addEventListener(
 
         "click",
 
         () => {
 
-          if (
-            kind === "meal"
-          ) {
 
-            state.today
-              .meals
-              .pop();
+          state.today.water =
 
-          }
+            state.today.water
+            ===
+            i + 1
 
-          else {
+            ? i
 
-            state.today
-              .activities
-              .pop();
+            : i + 1;
 
-          }
 
 
           saveState();
+
 
           render();
 
@@ -1901,1021 +2586,378 @@ h1 {
 
       );
 
-
-      container.appendChild(
-        undo
-      );
-
-    }
-
-  }
-
-
-
-  /* =========================
-     8 WATER GLASSES
-     ========================= */
-
-  function renderWater(day) {
-
-    els.waterRow.innerHTML =
-      "";
-
-
-    els.waterCount.textContent =
-      `${day.water}/8`;
-
-
-
-    for (
-      let i = 0;
-      i < 8;
-      i++
-    ) {
-
-      const glass =
-        document.createElement(
-          "div"
-        );
-
-
-      glass.className =
-
-        "glass"
-
-        +
-        (
-          i < day.water
-          ? " full"
-          : ""
-        )
-
-        +
-        (
-          !editable()
-          ? " locked"
-          : ""
-        );
-
-
-      glass.setAttribute(
-        "role",
-        "button"
-      );
-
-
-      glass.setAttribute(
-        "aria-label",
-        `Water glass ${i + 1}`
-      );
-
-
-
-      if (
-        editable()
-      ) {
-
-        glass.addEventListener(
-
-          "click",
-
-          () => {
-
-            /*
-              Example:
-
-              Click glass 4
-              -> 4 glasses full.
-
-              Click glass 4 again
-              -> back to 3.
-            */
-
-            state.today.water =
-
-              (
-                state.today.water
-                ===
-                i + 1
-              )
-
-              ? i
-
-              : i + 1;
-
-
-            saveState();
-
-            render();
-
-          }
-
-        );
-
-      }
-
-
-
-      els.waterRow.appendChild(
-        glass
-      );
-
-    }
-
-  }
-
-
-
-  /* =========================
-     DRAW SCREEN
-     ========================= */
-
-  function render() {
-
-    /*
-      Calling loadState()
-      also checks whether
-      midnight has passed.
-    */
-
-    state =
-      loadState();
-
-
-    const day =
-      currentDay();
-
-
-
-    els.todayBtn
-      .classList
-      .toggle(
-
-        "active",
-
-        selected === "today"
-
-      );
-
-
-    els.yesterdayBtn
-      .classList
-      .toggle(
-
-        "active",
-
-        selected === "yesterday"
-
-      );
-
-
-
-    els.dateLabel.textContent =
-      shortDate(
-        day.date
-      );
-
-
-
-    /*
-      Hidden native picker
-      allows only Today
-      and Yesterday.
-    */
-
-    els.datePicker.min =
-      yesterdayKey();
-
-
-    els.datePicker.max =
-      dateKey();
-
-
-    els.datePicker.value =
-      day.date;
-
-
-
-    /* =====================
-       FOOD
-       ===================== */
-
-    const eaten =
-      total(
-        day.meals
-      );
-
-
-    els.foodTotal.textContent =
-      `${eaten}/${GOAL}`;
-
-
-
-    let foodColor =
-      "var(--green)";
-
-
-    if (
-      eaten > GOAL
-    ) {
-
-      foodColor =
-        "var(--red)";
-
-    }
-
-    else if (
-      eaten >=
-      GOAL * 0.80
-    ) {
-
-      foodColor =
-        "var(--yellow)";
-
     }
 
 
 
-    setRing(
-
-      els.foodRing,
-
-      (
-        eaten /
-        GOAL
-      ) * 100,
-
-      foodColor
-
-    );
-
-
-
-    /* =====================
-       ACTIVITY
-       ===================== */
-
-    const burned =
-      total(
-        day.activities
-      );
-
-
-    els.burnTotal.textContent =
-      String(
-        burned
-      );
-
-
-    setRing(
-
-      els.burnRing,
-
-      (
-        burned /
-        500
-      ) * 100,
-
-      "var(--red)"
-
-    );
-
-
-
-    /* =====================
-       WATER
-       ===================== */
-
-    renderWater(
-      day
-    );
-
-
-
-    /* =====================
-       LAST ITEMS
-       ===================== */
-
-    renderLast(
-
-      els.mealLast,
-
-      day.meals,
-
-      "meal"
-
-    );
-
-
-    renderLast(
-
-      els.activityLast,
-
-      day.activities,
-
-      "activity"
-
-    );
-
-
-
-    const canEdit =
-      editable();
-
-
-
-    /*
-      Yesterday is SHOW ONLY.
-    */
-
-    els.mealAdd
-      .classList
-      .toggle(
-
-        "hidden",
-
-        selected ===
-        "yesterday"
-
-      );
-
-
-    els.activityAdd
-      .classList
-      .toggle(
-
-        "hidden",
-
-        selected ===
-        "yesterday"
-
-      );
-
-
-    els.closeDay
-      .classList
-      .toggle(
-
-        "hidden",
-
-        selected ===
-        "yesterday"
-
-      );
-
-
-
-    els.mealAdd.disabled =
-      !canEdit;
-
-
-    els.activityAdd.disabled =
-      !canEdit;
-
-
-
-    if (
-      selected === "today"
-    ) {
-
-      els.closeDay.textContent =
-
-        state.today.closed
-
-        ? "Day Closed"
-
-        : "Close the day";
-
-
-      els.closeDay.disabled =
-        state.today.closed;
-
-
-      els.closeDay
-        .classList
-        .toggle(
-
-          "closed",
-
-          state.today.closed
-
-        );
-
-    }
-
-  }
-
-
-
-  /* =========================
-     POPUPS
-     ========================= */
-
-  function openModal(
-    modal,
-    firstInput
-  ) {
-
-    if (
-      !editable()
-    ) {
-
-      return;
-
-    }
-
-
-    modal.classList.add(
-      "show"
-    );
-
-
-    modal.setAttribute(
-      "aria-hidden",
-      "false"
-    );
-
-
-    setTimeout(
-
-      () =>
-        firstInput.focus(),
-
-      40
-
+    els.waterRow.appendChild(
+      glass
     );
 
   }
 
-
-
-  function closeModal(
-    modal
-  ) {
-
-    modal.classList.remove(
-      "show"
-    );
-
-
-    modal.setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
-  }
+}
 
 
 
-  function wholePositive(
-    value
-  ) {
+/* ===============================
+   RENDER
+   =============================== */
 
-    const n =
-      Number(value);
-
-
-    return (
-
-      Number.isInteger(n)
-
-      &&
-      n > 0
-
-    )
-
-    ? n
-
-    : null;
-
-  }
+function render() {
 
 
+  state =
+    loadState();
 
-  /* =========================
-     TODAY / YESTERDAY
-     ========================= */
+
+  const day =
+    currentDay();
+
+
 
   els.todayBtn
-    .addEventListener(
+    .classList
+    .toggle(
 
-      "click",
+      "active",
 
-      () => {
-
-        selected =
-          "today";
-
-        render();
-
-      }
+      selected ===
+      "today"
 
     );
 
 
 
   els.yesterdayBtn
-    .addEventListener(
+    .classList
+    .toggle(
 
-      "click",
+      "active",
 
-      () => {
-
-        selected =
-          "yesterday";
-
-        render();
-
-      }
+      selected ===
+      "yesterday"
 
     );
 
 
 
-  /* =========================
-     DATE BUTTON
-     ========================= */
-
-  els.dateLabel
-    .addEventListener(
-
-      "click",
-
-      () => {
-
-        /*
-          On-screen date remains
-          short: 27 Sep.
-
-          Native picker may show
-          the full date while open.
-        */
-
-        if (
-
-          typeof
-          els.datePicker.showPicker
-          === "function"
-
-        ) {
-
-          els.datePicker
-            .showPicker();
-
-        }
-
-        else {
-
-          els.datePicker
-            .click();
-
-        }
-
-      }
-
+  els.dateLabel.textContent =
+    shortDate(
+      day.date
     );
 
 
 
-  els.datePicker
-    .addEventListener(
+  els.datePicker.min =
+    yesterdayKey();
 
-      "change",
 
-      () => {
-
-        selected =
-
-          els.datePicker.value
-          ===
-          yesterdayKey()
-
-          ? "yesterday"
-
-          : "today";
-
-
-        render();
-
-      }
-
-    );
-
-
-
-  /* =========================
-     OPEN ADD MEAL
-     ========================= */
-
-  els.mealAdd
-    .addEventListener(
-
-      "click",
-
-      () => {
-
-        els.mealName.value =
-          "";
-
-        els.mealCal.value =
-          "";
-
-
-        openModal(
-
-          els.mealModal,
-
-          els.mealName
-
-        );
-
-      }
-
-    );
-
-
-
-  /* =========================
-     OPEN ADD ACTIVITY
-     ========================= */
-
-  els.activityAdd
-    .addEventListener(
-
-      "click",
-
-      () => {
-
-        els.activityName.value =
-          "";
-
-        els.activityCal.value =
-          "";
-
-
-        openModal(
-
-          els.activityModal,
-
-          els.activityName
-
-        );
-
-      }
-
-    );
-
-
-
-  /* =========================
-     SAVE MEAL
-     ========================= */
-
-  els.mealForm
-    .addEventListener(
-
-      "submit",
-
-      event => {
-
-        event.preventDefault();
-
-
-        if (
-          !editable()
-        ) {
-
-          return;
-
-        }
-
-
-
-        const name =
-          els.mealName
-          .value
-          .trim();
-
-
-        const calories =
-          wholePositive(
-            els.mealCal.value
-          );
-
-
-
-        if (
-          !name
-          ||
-          calories === null
-        ) {
-
-          return;
-
-        }
-
-
-
-        state.today
-          .meals
-          .push({
-
-            name:name,
-
-            calories:calories
-
-          });
-
-
-
-        saveState();
-
-
-        closeModal(
-          els.mealModal
-        );
-
-
-        render();
-
-      }
-
-    );
-
-
-
-  /* =========================
-     SAVE ACTIVITY
-     ========================= */
-
-  els.activityForm
-    .addEventListener(
-
-      "submit",
-
-      event => {
-
-        event.preventDefault();
-
-
-        if (
-          !editable()
-        ) {
-
-          return;
-
-        }
-
-
-
-        const name =
-          els.activityName
-          .value
-          .trim();
-
-
-        const calories =
-          wholePositive(
-            els.activityCal.value
-          );
-
-
-
-        if (
-          !name
-          ||
-          calories === null
-        ) {
-
-          return;
-
-        }
-
-
-
-        state.today
-          .activities
-          .push({
-
-            name:name,
-
-            calories:calories
-
-          });
-
-
-
-        saveState();
-
-
-        closeModal(
-          els.activityModal
-        );
-
-
-        render();
-
-      }
-
-    );
-
-
-
-  /* =========================
-     CANCEL POPUPS
-     ========================= */
-
-  document
-    .querySelectorAll(
-      "[data-close]"
-    )
-    .forEach(
-
-      button => {
-
-        button
-          .addEventListener(
-
-            "click",
-
-            () => {
-
-              closeModal(
-
-                $(
-                  button.dataset.close
-                )
-
-              );
-
-            }
-
-          );
-
-      }
-
-    );
-
-
-
-  /*
-    Tap outside popup
-    to close it.
-  */
-
-  [
-    els.mealModal,
-    els.activityModal
-
-  ].forEach(
-
-    modal => {
-
-      modal.addEventListener(
-
-        "click",
-
-        event => {
-
-          if (
-            event.target === modal
-          ) {
-
-            closeModal(
-              modal
-            );
-
-          }
-
-        }
-
-      );
-
-    }
-
-  );
-
-
-
-  /* =========================
-     CLOSE DAY
-     ========================= */
-
-  els.closeDay
-    .addEventListener(
-
-      "click",
-
-      () => {
-
-        if (
-
-          selected !== "today"
-
-          ||
-
-          state.today.closed
-
-        ) {
-
-          return;
-
-        }
-
-
-
-        const yes =
-          confirm(
-
-            "Close today? Meal, water and activity will be locked until tomorrow."
-
-          );
-
-
-        if (
-          !yes
-        ) {
-
-          return;
-
-        }
-
-
-
-        state.today.closed =
-          true;
-
-
-        saveState();
-
-
-        render();
-
-      }
-
-    );
-
-
-
-  /* =========================
-     MIDNIGHT REFRESH
-     ========================= */
-
-  let lastKnownDate =
+  els.datePicker.max =
     dateKey();
 
 
-
-  setInterval(
-
-    () => {
-
-      const now =
-        dateKey();
+  els.datePicker.value =
+    day.date;
 
 
-      if (
-        now !==
-        lastKnownDate
-      ) {
 
-        lastKnownDate =
-          now;
+  /* =========================
+     CALORIES
+     ========================= */
 
-
-        selected =
-          "today";
+  const eaten =
+    total(
+      day.meals
+    );
 
 
-        state =
-          loadState();
+
+  els.foodTotal.textContent =
+    `${eaten}/${GOAL}`;
 
 
-        render();
 
-      }
+  let foodColor =
+    "var(--green)";
 
-    },
 
-    30000
+  if (
+    eaten > GOAL
+  ) {
+
+    foodColor =
+      "var(--red)";
+
+  }
+
+  else if (
+    eaten >=
+    GOAL * .80
+  ) {
+
+    foodColor =
+      "var(--yellow)";
+
+  }
+
+
+
+  setRing(
+
+    els.foodRing,
+
+    (
+      eaten /
+      GOAL
+    )
+    *
+    100,
+
+    foodColor
 
   );
 
 
 
+  /* =========================
+     ACTIVITY
+     ========================= */
+
+  const burned =
+    total(
+      day.activities
+    );
+
+
+
+  els.burnTotal.textContent =
+    burned;
+
+
+
+  setRing(
+
+    els.burnRing,
+
+    Math.min(
+
+      100,
+
+      (
+        burned /
+        500
+      )
+      *
+      100
+
+    ),
+
+    "var(--red)"
+
+  );
+
+
+
+  /* =========================
+     WATER
+     ========================= */
+
+  renderWater(
+    day
+  );
+
+
+
+  const canEdit =
+    editable();
+
+
+
   /*
-    Also check when user
-    returns to the app.
+    YESTERDAY:
+    show circles and water only.
   */
 
-  window.addEventListener(
+  els.mealAdd
+    .classList
+    .toggle(
 
-    "focus",
+      "hidden",
+
+      selected ===
+      "yesterday"
+
+    );
+
+
+  els.activityAdd
+    .classList
+    .toggle(
+
+      "hidden",
+
+      selected ===
+      "yesterday"
+
+    );
+
+
+  els.closeDay
+    .classList
+    .toggle(
+
+      "hidden",
+
+      selected ===
+      "yesterday"
+
+    );
+
+
+
+  els.mealAdd.disabled =
+    !canEdit;
+
+
+  els.activityAdd.disabled =
+    !canEdit;
+
+
+
+  if (
+    selected ===
+    "today"
+  ) {
+
+
+    els.closeDay.textContent =
+
+      state.today.closed
+
+      ? "Day Closed"
+
+      : "Close the day";
+
+
+
+    els.closeDay.disabled =
+      state.today.closed;
+
+
+
+    els.closeDay
+      .classList
+      .toggle(
+
+        "closed",
+
+        state.today.closed
+
+      );
+
+  }
+
+}
+
+
+
+/* ===============================
+   POPUPS
+   =============================== */
+
+function openModal(
+  modal,
+  input
+) {
+
+
+  if (
+    !editable()
+  ) {
+
+    return;
+
+  }
+
+
+
+  modal.classList.add(
+    "show"
+  );
+
+
+
+  setTimeout(
+
+    () =>
+      input.focus(),
+
+    40
+
+  );
+
+}
+
+
+
+function closeModal(
+  modal
+) {
+
+  modal.classList.remove(
+    "show"
+  );
+
+}
+
+
+
+function wholePositive(
+  value
+) {
+
+
+  const n =
+    Number(
+      value
+    );
+
+
+  return (
+
+    Number.isInteger(
+      n
+    )
+
+    &&
+
+    n > 0
+
+  )
+
+  ? n
+
+  : null;
+
+}
+
+
+
+/* ===============================
+   TODAY BUTTON
+   =============================== */
+
+els.todayBtn
+  .addEventListener(
+
+    "click",
 
     () => {
 
-      state =
-        loadState();
+      selected =
+        "today";
+
 
       render();
 
@@ -2925,16 +2967,544 @@ h1 {
 
 
 
-  /* =========================
-     START
-     ========================= */
+/* ===============================
+   YESTERDAY BUTTON
+   =============================== */
 
-  render();
+els.yesterdayBtn
+  .addEventListener(
+
+    "click",
+
+    () => {
+
+      selected =
+        "yesterday";
+
+
+      render();
+
+    }
+
+  );
+
+
+
+/* ===============================
+   DATE BUTTON
+   =============================== */
+
+els.dateLabel
+  .addEventListener(
+
+    "click",
+
+    () => {
+
+
+      if (
+
+        typeof
+        els.datePicker
+          .showPicker
+        ===
+        "function"
+
+      ) {
+
+        els.datePicker
+          .showPicker();
+
+      }
+
+      else {
+
+        els.datePicker
+          .click();
+
+      }
+
+    }
+
+  );
+
+
+
+els.datePicker
+  .addEventListener(
+
+    "change",
+
+    () => {
+
+
+      selected =
+
+        els.datePicker.value
+        ===
+        yesterdayKey()
+
+        ? "yesterday"
+
+        : "today";
+
+
+      render();
+
+    }
+
+  );
+
+
+
+/* ===============================
+   ADD MEAL
+   =============================== */
+
+els.mealAdd
+  .addEventListener(
+
+    "click",
+
+    () => {
+
+
+      els.mealName.value =
+        "";
+
+
+      els.mealCal.value =
+        "";
+
+
+      openModal(
+
+        els.mealModal,
+
+        els.mealName
+
+      );
+
+    }
+
+  );
+
+
+
+els.mealForm
+  .addEventListener(
+
+    "submit",
+
+    event => {
+
+
+      event.preventDefault();
+
+
+
+      if (
+        !editable()
+      ) {
+
+        return;
+
+      }
+
+
+
+      const name =
+        els.mealName
+        .value
+        .trim();
+
+
+
+      const calories =
+        wholePositive(
+
+          els.mealCal.value
+
+        );
+
+
+
+      if (
+        !name
+        ||
+        calories ===
+        null
+      ) {
+
+        return;
+
+      }
+
+
+
+      state.today
+        .meals
+        .push({
+
+          name,
+          calories
+
+        });
+
+
+
+      saveState();
+
+
+      closeModal(
+        els.mealModal
+      );
+
+
+      render();
+
+    }
+
+  );
+
+
+
+/* ===============================
+   ADD ACTIVITY
+   =============================== */
+
+els.activityAdd
+  .addEventListener(
+
+    "click",
+
+    () => {
+
+
+      els.activityName.value =
+        "";
+
+
+      els.activityCal.value =
+        "";
+
+
+      openModal(
+
+        els.activityModal,
+
+        els.activityName
+
+      );
+
+    }
+
+  );
+
+
+
+els.activityForm
+  .addEventListener(
+
+    "submit",
+
+    event => {
+
+
+      event.preventDefault();
+
+
+
+      if (
+        !editable()
+      ) {
+
+        return;
+
+      }
+
+
+
+      const name =
+        els.activityName
+        .value
+        .trim();
+
+
+
+      const calories =
+        wholePositive(
+
+          els.activityCal.value
+
+        );
+
+
+
+      if (
+        !name
+        ||
+        calories ===
+        null
+      ) {
+
+        return;
+
+      }
+
+
+
+      state.today
+        .activities
+        .push({
+
+          name,
+          calories
+
+        });
+
+
+
+      saveState();
+
+
+      closeModal(
+        els.activityModal
+      );
+
+
+      render();
+
+    }
+
+  );
+
+
+
+/* ===============================
+   CANCEL POPUPS
+   =============================== */
+
+document
+  .querySelectorAll(
+    "[data-close]"
+  )
+  .forEach(
+
+    button => {
+
+
+      button
+        .addEventListener(
+
+          "click",
+
+          () => {
+
+
+            closeModal(
+
+              $(
+
+                button
+                  .dataset
+                  .close
+
+              )
+
+            );
+
+          }
+
+        );
+
+    }
+
+  );
+
+
+
+[
+  els.mealModal,
+  els.activityModal
+
+]
+.forEach(
+
+  modal => {
+
+
+    modal.addEventListener(
+
+      "click",
+
+      event => {
+
+
+        if (
+          event.target ===
+          modal
+        ) {
+
+          closeModal(
+            modal
+          );
+
+        }
+
+      }
+
+    );
+
+  }
+
+);
+
+
+
+/* ===============================
+   CLOSE DAY
+   =============================== */
+
+els.closeDay
+  .addEventListener(
+
+    "click",
+
+    () => {
+
+
+      if (
+
+        selected !==
+        "today"
+
+        ||
+
+        state.today.closed
+
+      ) {
+
+        return;
+
+      }
+
+
+
+      const yes =
+        confirm(
+
+          "Close today? Meal, water and activity will be locked until tomorrow."
+
+        );
+
+
+
+      if (
+        !yes
+      ) {
+
+        return;
+
+      }
+
+
+
+      state.today.closed =
+        true;
+
+
+      saveState();
+
+
+      render();
+
+    }
+
+  );
+
+
+
+/* ===============================
+   MIDNIGHT RESET
+   =============================== */
+
+let lastKnownDate =
+  dateKey();
+
+
+
+setInterval(
+
+  () => {
+
+
+    const now =
+      dateKey();
+
+
+
+    if (
+      now !==
+      lastKnownDate
+    ) {
+
+
+      lastKnownDate =
+        now;
+
+
+      selected =
+        "today";
+
+
+      state =
+        loadState();
+
+
+      render();
+
+    }
+
+  },
+
+  30000
+
+);
+
+
+
+window.addEventListener(
+
+  "focus",
+
+  () => {
+
+
+    state =
+      loadState();
+
+
+    render();
+
+  }
+
+);
+
+
+
+/* ===============================
+   START
+   =============================== */
+
+render();
 
 
 })();
 
 </script>
 
+
 </body>
+
 </html>
