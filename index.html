@@ -100,9 +100,8 @@
 <body>
 <main class="app">
   <section class="hero">
-    <div class="eyebrow">My simple daily tracker</div>
+    
     <h1>Sane's Personalized<br>Weight Management</h1>
-    <p class="subtitle">Food. Water. Movement. Nothing extra.</p>
     <div class="datebar">
       <input id="datePicker" type="date" aria-label="Select today or yesterday" />
       <button id="todayBtn" class="pill active" type="button">Today</button>
@@ -116,7 +115,6 @@
       <div class="card-head">
         <div>
           <h2 class="card-title">Calories Eaten</h2>
-          <div class="card-kicker">Daily food budget: 1,100 kcal</div>
         </div>
         <button id="mealToggle" class="add-btn" type="button">+ Add meal</button>
       </div>
@@ -134,14 +132,12 @@
           </div>
         </div>
       </div>
-      <div id="mealEntries" class="entries"></div>
     </article>
 
     <article class="card">
       <div class="card-head">
         <div>
           <h2 class="card-title">Water</h2>
-          <div class="card-kicker">Goal: fill all 8 glasses</div>
         </div>
       </div>
       <div id="waterRow" class="water-row" aria-label="Eight glasses of water"></div>
@@ -152,7 +148,6 @@
       <div class="card-head">
         <div>
           <h2 class="card-title">Activity</h2>
-          <div class="card-kicker">Track only the calories you want to count</div>
         </div>
         <button id="activityToggle" class="add-btn" type="button">+ Add activity</button>
       </div>
@@ -176,7 +171,6 @@
 
   <button id="closeDay" class="close-btn" type="button">Close the day</button>
   <div id="closedBanner" class="closed-banner">Day closed. Today's entries are locked.</div>
-  <div class="tiny">Only today and yesterday are kept in this browser. A new day starts automatically after midnight.</div>
 </main>
 <script>
 (() => {
